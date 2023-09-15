@@ -34,6 +34,13 @@ There sort parameters can be used in combination and some interesting cases are 
 * Logrus
 * Testify
 
+## Nice to haves in the future
+
+* More validations (there are couple more edge cases that can be considered)
+* More tests (both unit and integration)
+* Load tests (using locust for example)
+* Caching - most of the data seems to be with static nature, we can decrease the DB load and overall performance by using something like Redis
+
 ## REST API endpoints
 
 Healths:
