@@ -55,6 +55,7 @@ Keeping all of these points in mind if i had more time i would implement:
 * Load tests (using locust for example)
 * Security - it's nice to have a devops / network security team but since i don't have it on my side i would have to do the things on my own. I would definitely take some courses in this topic and start to implement some goodies. :)
 * Caching - most of the data seems to be with static nature, we can decrease the DB load and overall performance by using something like Redis
+* Better documentation
 
 ## REST API endpoints
 
