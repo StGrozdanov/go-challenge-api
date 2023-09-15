@@ -22,3 +22,13 @@ func Ping() error {
 	defer cancel()
 	return instance.DB.PingContext(ctx)
 }
+
+func GetSingleRecordNamedQuery(destination interface{}, query string, args interface{}) error {
+	var ctx, cancel = context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	namedStatement, err := instance.DB.PrepareNamed(query)
+	if err != nil {
+		return err
+	}
+	return namedStatement.Unsafe().GetContext(ctx, destination, args)
+}

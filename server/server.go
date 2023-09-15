@@ -21,6 +21,7 @@ func Run() {
 	router := setupRouter()
 	router.GET("/healths", handlers.HealthCheck)
 	router.GET("/metrics", handlers.Metrics)
+	router.GET("/rentals/:id", handlers.SingleRentalHandler)
 
 	err := router.Run()
 	if err != nil {
