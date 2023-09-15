@@ -32,6 +32,6 @@ func init() {
 
 func GetLogger() *log.Entry {
 	return log.WithFields(map[string]interface{}{
-		"app_name": "outdoorsy_backend",
+		"app_name": "outdoorsy-api",
 	})
 }

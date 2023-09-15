@@ -3,6 +3,7 @@ package handlers
 import (
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"outdoorsy-api/database"
 )
 
 type healthResponse struct {
@@ -18,6 +19,12 @@ func HealthCheck(ginCtx *gin.Context) {
 }
 
 func checkDB(response *healthResponse) {
-	response.AppStatus = "Healthy"
-	response.DatabaseStatus = "Healthy"
+	err := database.Ping()
+	if err != nil {
+		response.AppStatus = "Unhealthy"
+		response.DatabaseStatus = err.Error()
+	} else {
+		response.AppStatus = "Healthy"
+		response.DatabaseStatus = "Healthy"
+	}
 }

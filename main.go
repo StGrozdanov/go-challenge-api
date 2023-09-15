@@ -3,6 +3,7 @@ package main
 import (
 	log "github.com/sirupsen/logrus"
 	"outdoorsy-api/config"
+	"outdoorsy-api/database"
 	"outdoorsy-api/server"
 	"outdoorsy-api/utils"
 )
@@ -16,6 +17,7 @@ func init() {
 	if app.AppEnv == "LOC" {
 		utils.PrettyPrint(app)
 	}
+	database.Init(app.DBHosts, app.DBUsername, app.DBPassword, app.DBPort, app.DBName)
 }
 
 func main() {

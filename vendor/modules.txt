@@ -35,7 +35,6 @@ github.com/cespare/xxhash/v2
 github.com/chenzhuoyu/base64x
 # github.com/davecgh/go-spew v1.1.1
 ## explicit
-github.com/davecgh/go-spew/spew
 # github.com/fsnotify/fsnotify v1.6.0
 ## explicit; go 1.16
 github.com/fsnotify/fsnotify
@@ -80,6 +79,10 @@ github.com/goccy/go-json/internal/runtime
 ## explicit; go 1.9
 github.com/golang/protobuf/proto
 github.com/golang/protobuf/ptypes/timestamp
+# github.com/jmoiron/sqlx v1.3.5
+## explicit; go 1.10
+github.com/jmoiron/sqlx
+github.com/jmoiron/sqlx/reflectx
 # github.com/joho/godotenv v1.5.1
 ## explicit; go 1.12
 github.com/joho/godotenv
@@ -106,6 +109,11 @@ github.com/knadh/koanf/v2
 # github.com/leodido/go-urn v1.2.4
 ## explicit; go 1.16
 github.com/leodido/go-urn
+# github.com/lib/pq v1.10.9
+## explicit; go 1.13
+github.com/lib/pq
+github.com/lib/pq/oid
+github.com/lib/pq/scram
 # github.com/mattn/go-isatty v0.0.19
 ## explicit; go 1.15
 github.com/mattn/go-isatty
@@ -136,7 +144,6 @@ github.com/pelletier/go-toml/v2/internal/tracker
 github.com/pelletier/go-toml/v2/unstable
 # github.com/pmezard/go-difflib v1.0.0
 ## explicit
-github.com/pmezard/go-difflib/difflib
 # github.com/prometheus/client_golang v1.16.0
 ## explicit; go 1.17
 github.com/prometheus/client_golang/prometheus
@@ -163,7 +170,6 @@ github.com/sirupsen/logrus
 github.com/sirupsen/logrus/hooks/writer
 # github.com/stretchr/testify v1.8.4
 ## explicit; go 1.20
-github.com/stretchr/testify/assert
 # github.com/twitchyliquid64/golang-asm v0.15.1
 ## explicit; go 1.13
 github.com/twitchyliquid64/golang-asm/asm/arch
