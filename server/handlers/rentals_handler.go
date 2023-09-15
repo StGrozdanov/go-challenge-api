@@ -31,3 +31,19 @@ func SingleRentalHandler(ginCtx *gin.Context) {
 
 	ginCtx.JSON(http.StatusOK, rental)
 }
+
+func MultipleRentalsHandler(ginCtx *gin.Context) {
+	rental, err := internal.GetMultipleRentals(ginCtx.Request.URL.Query())
+	if err != nil {
+		if err.Error() == "sql: no rows in result set" {
+			ginCtx.JSON(http.StatusNoContent, rental)
+			return
+		}
+
+		utils.GetLogger().WithFields(log.Fields{"error": err.Error()}).Error("Error on getting all rentals from the database")
+		ginCtx.JSON(http.StatusInternalServerError, rental)
+		return
+	}
+
+	ginCtx.JSON(http.StatusOK, rental)
+}

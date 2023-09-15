@@ -22,6 +22,7 @@ func Run() {
 	router.GET("/healths", handlers.HealthCheck)
 	router.GET("/metrics", handlers.Metrics)
 	router.GET("/rentals/:id", handlers.SingleRentalHandler)
+	router.GET("/rentals", handlers.MultipleRentalsHandler)
 
 	err := router.Run()
 	if err != nil {

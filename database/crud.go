@@ -32,3 +32,9 @@ func GetSingleRecordNamedQuery(destination interface{}, query string, args inter
 	}
 	return namedStatement.Unsafe().GetContext(ctx, destination, args)
 }
+
+func GetMultipleRecords(destination interface{}, query string) error {
+	var ctx, cancel = context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancel()
+	return instance.DB.Unsafe().SelectContext(ctx, destination, query)
+}
