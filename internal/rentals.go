@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/url"
 	"outdoorsy-api/database"
+	"outdoorsy-api/utils"
 	"strings"
 )
 
@@ -13,11 +14,22 @@ func GetASingleRental(id int) (rental Rental, err error) {
 	return
 }
 
-func GetMultipleRentals(params url.Values) (rentals []Rental, err error) {
+// GetMultipleRentals will check for URL parameters. If there are no parameters - all records from the database
+// will be retrieved. If parameters are provided - they will be validated and if valid - filtration will be made
+// If the parameters are not valid - failedValidation will be set to true and descriptive validation error will
+// be returned. In case of non supported parameter - all records will be retrieved as if no parameter was
+// added.
+func GetMultipleRentals(params url.Values) (rentals []Rental, failedValidation bool, err error) {
 	if len(params) == 0 {
 		err = database.GetMultipleRecords(&rentals, selectAllRentalsQuery)
 		return
 	}
+
+	if err = utils.ValidateParameters(params); err != nil {
+		failedValidation = true
+		return
+	}
+
 	additionalQueryParams := transpileParamsToDBQueries(params)
 	err = database.GetMultipleRecords(&rentals, selectAllRentalsQuery+additionalQueryParams)
 	return
@@ -49,7 +61,7 @@ func handleDBQueryWhereClauses(params url.Values, builder *strings.Builder) {
 
 	for key, value := range params {
 		content, contentWasFound := whereParameters[key]
-		if !contentWasFound {
+		if !contentWasFound || len(value) > 0 && value[0] == "" {
 			continue
 		}
 
@@ -74,11 +86,13 @@ func handleDBQuerySortingClause(params url.Values, builder *strings.Builder) {
 	var querySortingClause string
 
 	if params.Has("sort") {
-		get := params.Get("sort")
-		if get == "price" {
+		sortingValue := params.Get("sort")
+		if sortingValue == "" {
+			return
+		} else if sortingValue == "price" {
 			querySortingClause = " ORDER BY price_per_day"
 		} else {
-			querySortingClause = fmt.Sprintf(" ORDER BY %s", get)
+			querySortingClause = fmt.Sprintf(" ORDER BY %s", sortingValue)
 		}
 		builder.WriteString(querySortingClause)
 	}
@@ -95,7 +109,7 @@ func handleDBQueryFinalClauses(params url.Values, builder *strings.Builder) {
 
 	for key, value := range params {
 		content, contentWasFound := finalClauseParameters[key]
-		if !contentWasFound {
+		if !contentWasFound || len(value) > 0 && value[0] == "" {
 			continue
 		}
 		queryFinalClause = fmt.Sprintf(content, value)

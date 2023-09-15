@@ -33,10 +33,15 @@ func SingleRentalHandler(ginCtx *gin.Context) {
 }
 
 func MultipleRentalsHandler(ginCtx *gin.Context) {
-	rental, err := internal.GetMultipleRentals(ginCtx.Request.URL.Query())
+	rental, failedValidation, err := internal.GetMultipleRentals(ginCtx.Request.URL.Query())
 	if err != nil {
 		if err.Error() == "sql: no rows in result set" {
 			ginCtx.JSON(http.StatusNoContent, rental)
+			return
+		}
+
+		if failedValidation {
+			ginCtx.JSON(http.StatusBadRequest, map[string]string{"error": err.Error()})
 			return
 		}
 
