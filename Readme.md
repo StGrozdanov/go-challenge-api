@@ -58,8 +58,6 @@ Keeping all of these points in mind if i had more time i would implement:
 
 ## REST API endpoints
 
-Healths:
-
 * #### GET /healths - check the database and app status.
 
 * #### GET /metrics - check the app metrics
