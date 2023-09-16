@@ -90,5 +90,5 @@ You have to provide your own config.env in the main project directory file:
 ### How to start the server
 
 1. `docker-compose up` to start and populate the database
-2. `go run main.go` to start the application
+2. `go run main.go` to start the application on port 8080
 3. `go test -v ./...` to run the tests
